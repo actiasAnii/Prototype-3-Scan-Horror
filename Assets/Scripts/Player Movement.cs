@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Mouse Look Settings")]
     public float sensitivity = 2f;
     public Transform playerCamera; 
-    public float upper = 20f;
-    public float lower = 85f;
+    public float lowerBound = 90f;
+    public float upperBound = 25f;
 
     private float pitch = 0f; 
     void Start()
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
         // pitch
         pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, -lower, upper);
+        pitch = Mathf.Clamp(pitch, -upperBound, lowerBound);
 
         playerCamera.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
