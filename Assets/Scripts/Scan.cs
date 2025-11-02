@@ -16,16 +16,19 @@ public class Scan : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ScanForObject();
-        }
+        // if we want it to be on keypress
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    ScanForObject();
+        //}
+
+        ScanForObject();
 
     }
 
     void ScanForObject()
     {
-        Ray ray = new Ray(playerCamera.position, playerCamera.forward); // adjust where collider is coming from. player collider face ?
+        Ray ray = new Ray(playerCamera.position, playerCamera.forward); 
         RaycastHit hit;
 
         

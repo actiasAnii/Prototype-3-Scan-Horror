@@ -7,6 +7,14 @@ TagManager:
   - Door
   - Wall
   - Floor
+  - Vending Machine
+  - Battery
+  - Shield Core
+  - Shield Generator
+  - Storage Container
+  - Projector
+  - Table
+  - Chair
   layers:
   - Default
   - TransparentFX
