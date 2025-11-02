@@ -12,7 +12,7 @@ public class Scan : MonoBehaviour
     [Header("Scan System")]
     public Transform playerCamera;
     public float scanDist = 100f; 
-    // play with range + default scan result probably so theres less floor
+    // play with range + default scan result + scene probably so theres less floor
 
     
 

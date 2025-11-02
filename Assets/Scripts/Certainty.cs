@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Rendering;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 public class Certainty : MonoBehaviour
@@ -16,7 +17,6 @@ public class Certainty : MonoBehaviour
         Vector2 tagRange = GetTagRange(gameObject.tag);
         certainty = Random.Range(tagRange.x, tagRange.y);
 
-        // 3️⃣ Generate an individual range ±5–10%
         float variance = certainty * Random.Range(0.05f, 0.10f);
         minRange = Mathf.Clamp01(certainty - variance);
         maxRange = Mathf.Clamp01(certainty + variance);
@@ -39,6 +39,7 @@ public class Certainty : MonoBehaviour
             "Shield Generator" => new Vector2(0.45f, 0.65f),
             "Storage Container" => new Vector2(0.65f, 0.8f),
             "Projector" => new Vector2(0.32f, 0.6f),
+            "???????" => new Vector2(0.01f, 0.05f),
             _ => new Vector2(0f, 1f)
         };
     }
