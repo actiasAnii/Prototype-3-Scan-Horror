@@ -7,16 +7,18 @@ public class Scan : MonoBehaviour
     [Header("UI")]
     public TMP_Text objectScanned;
     public TMP_Text distance;
+    public TMP_Text certainty;
 
     [Header("Scan System")]
     public Transform playerCamera;
-    public float scanDist = 50f;
+    public float scanDist = 100f; 
+    // play with range + default scan result probably so theres less floor
 
     
 
     void Update()
     {
-        // if we want it to be on keypress
+        // change to occur on keypress
         //if (Input.GetKeyDown(KeyCode.E))
         //{
         //    ScanForObject();
@@ -36,12 +38,22 @@ public class Scan : MonoBehaviour
         {
             Debug.DrawLine(ray.origin, ray.direction * scanDist, Color.green, 5f); //debug raycast line
             objectScanned.text = hit.collider.tag;
-            distance.text = hit.distance.ToString("F2") + " m";
+            distance.text = $"{hit.distance:F2} m";
+
+            Certainty certaintyBase = hit.collider.GetComponent<Certainty>();
+            if (certaintyBase != null)
+            {
+                float t = Mathf.Clamp01(1f - (hit.distance / scanDist));
+                float certaintyCalc = Mathf.Lerp(certaintyBase.minRange, certaintyBase.maxRange, t);
+
+                certainty.text = $"{certaintyCalc*100f:F2}%";
+            }
             // will add % certainty based on distance
         }
         else
         {
             Debug.DrawLine(ray.origin, ray.direction * scanDist, Color.red, 5f);
+            // reset text also ?
         }
 
 
