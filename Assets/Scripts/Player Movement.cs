@@ -13,12 +13,22 @@ public class PlayerMovement : MonoBehaviour
     public float lowerBound = 90f;
     public float upperBound = 25f;
 
-    private float pitch = 0f; 
+    private float pitch = 0f;
+
+    [Header("Audio Settings")]
+    public AudioClip footsteps;
+    private AudioSource playerAudio;
     void Start()
     {
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        playerAudio = GetComponent<AudioSource>();
+        playerAudio.clip = footsteps;
+        playerAudio.loop = true;
+        playerAudio.playOnAwake = false;
+
     }
 
     void Update()
@@ -51,6 +61,22 @@ public class PlayerMovement : MonoBehaviour
         if (move.sqrMagnitude > 1f)
             move.Normalize();
 
+        bool isMoving = move.magnitude > 0.1f;
+
         transform.position += move * speed * Time.deltaTime;
+
+        if (isMoving )
+        {
+            playerAudio.Play();
+
+        }
+        else
+        {
+            if (playerAudio.isPlaying)
+            {
+                playerAudio.Stop();
+            }
+
+        }
     }
 }

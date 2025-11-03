@@ -11,20 +11,30 @@ public class Scan : MonoBehaviour
 
     [Header("Scan System")]
     public Transform playerCamera;
-    public float scanDist = 100f; 
+    public float scanDist = 100f;
     // play with range + default scan result + scene probably so theres less floor
 
-    
+    [Header("Audio Settings")]
+    public AudioClip sonarPing;
+    private AudioSource playerAudio;
+
+    private void Start()
+    {
+        playerAudio = GetComponent<AudioSource>();
+    }
+
+
 
     void Update()
     {
         // change to occur on keypress
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    ScanForObject();
-        //}
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ScanForObject();
+            playerAudio.PlayOneShot(sonarPing);
+        }
 
-        ScanForObject();
+        //ScanForObject();
 
     }
 
