@@ -16,11 +16,12 @@ public class Scan : MonoBehaviour
 
     [Header("Audio Settings")]
     public AudioClip sonarPing;
-    private AudioSource playerAudio;
+    private AudioSource pingSource;
 
     private void Start()
     {
-        playerAudio = GetComponent<AudioSource>();
+        AudioSource[] sources = GetComponents<AudioSource>();
+        pingSource = sources[1];
     }
 
 
@@ -31,7 +32,7 @@ public class Scan : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             ScanForObject();
-            playerAudio.PlayOneShot(sonarPing);
+            pingSource.PlayOneShot(sonarPing); // adjust volume
         }
 
         //ScanForObject();
@@ -58,7 +59,6 @@ public class Scan : MonoBehaviour
 
                 certainty.text = $"{certaintyCalc*100f:F2}%";
             }
-            // will add % certainty based on distance
         }
         else
         {
@@ -66,6 +66,14 @@ public class Scan : MonoBehaviour
             // reset text also ?
         }
 
+        TriggerMonster();
+    }
+
+    // monster only prompted to react after player pings
+    void TriggerMonster()
+    {
+        MonsterResponse monster = FindFirstObjectByType<MonsterResponse>();
+        monster.OnPlayerPing();
 
     }
 }

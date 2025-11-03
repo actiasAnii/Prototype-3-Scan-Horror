@@ -68,7 +68,7 @@ public class Compass : MonoBehaviour
     private void UpdateCompassPosition(string dir, float angle)
     {
         float xPos = 0f;
-        const float yPos = 250f;
+        const float yPos = 175;
         const float scale = 4f;
 
         switch (dir)

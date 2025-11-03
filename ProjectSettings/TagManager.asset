@@ -50,6 +50,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Blackout
+    uniqueID: 832167327
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

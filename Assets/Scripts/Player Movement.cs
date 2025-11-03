@@ -24,10 +24,13 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        playerAudio = GetComponent<AudioSource>();
+        AudioSource[] sources =GetComponents<AudioSource>();
+        playerAudio = sources[0];
         playerAudio.clip = footsteps;
         playerAudio.loop = true;
         playerAudio.playOnAwake = false;
+        playerAudio.spatialBlend = 0f;
+        playerAudio.volume = 10f;
 
     }
 
@@ -67,14 +70,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving )
         {
-            playerAudio.Play();
+            if (!playerAudio.isPlaying)
+            {
+                playerAudio.Play();
+                // Debug.Log("footsteps playing");
+
+            }
+               
 
         }
         else
         {
             if (playerAudio.isPlaying)
             {
-                playerAudio.Stop();
+                playerAudio.Pause();
+                // Debug.Log("footsteps stopped");
             }
 
         }
