@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float upperBound = 25f;
 
     private float pitch = 0f;
+    private Rigidbody rb;
+    private Vector3 moveinput;
 
     [Header("Audio Settings")]
     public AudioClip footsteps;
@@ -32,11 +34,19 @@ public class PlayerMovement : MonoBehaviour
         playerAudio.spatialBlend = 0f;
         playerAudio.volume = 10f;
 
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+
     }
 
     void Update()
     {
         HandleLook();
+        HandleMoveInput();
+    }
+
+    private void FixedUpdate()
+    {
         HandleMove();
     }
 
@@ -57,16 +67,12 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMove()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        Vector3 targetVelocity = moveinput * speed;
+        Vector3 velocity = rb.linearVelocity;
+        Vector3 velocityChange = targetVelocity - new Vector3(velocity.x, 0, velocity.z);
+        rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        if (move.sqrMagnitude > 1f)
-            move.Normalize();
-
-        bool isMoving = move.magnitude > 0.1f;
-
-        transform.position += move * speed * Time.deltaTime;
+        bool isMoving = moveinput.magnitude > 0.1f;
 
         if (isMoving )
         {
@@ -88,5 +94,12 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+    }
+
+    void HandleMoveInput()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        moveinput = (transform.right * x + transform.forward * z).normalized;
     }
 }
