@@ -1,5 +1,4 @@
-﻿using UnityEditor.Rendering;
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class Certainty : MonoBehaviour
@@ -30,15 +29,15 @@ public class Certainty : MonoBehaviour
         {
             "Wall" => new Vector2(0.9f, 0.97f),
             "Floor" => new Vector2(0.92f, 0.98f),
-            "Chair" => new Vector2(0.2f, 0.3f),
-            "Door" => new Vector2(0.7f, 0.8f),
-            "Vending Machine" => new Vector2(0.3f, 0.5f),
-            "Battery" => new Vector2(0.3f, 0.6f),
-            "Table" => new Vector2(0.7f, 0.88f),
-            "Shield Core" => new Vector2(0.6f, 0.8f),
-            "Shield Generator" => new Vector2(0.45f, 0.65f),
+            "Chair" => new Vector2(0.1f, 0.25f),
+            "Door" => new Vector2(0.5f, 0.8f),
+            "Vending Machine" => new Vector2(0.15f, 0.45f),
+            "Battery" => new Vector2(0.25f, 0.4f),
+            "Table" => new Vector2(0.4f, 0.6f),
+            "Shield Core" => new Vector2(0.3f, 0.7f),
+            "Shield Generator" => new Vector2(0.2f, 0.4f),
             "Storage Container" => new Vector2(0.65f, 0.8f),
-            "Projector" => new Vector2(0.32f, 0.6f),
+            "Projector" => new Vector2(0.12f, 0.35f),
             "???????" => new Vector2(0.01f, 0.05f),
             _ => new Vector2(0f, 1f)
         };
