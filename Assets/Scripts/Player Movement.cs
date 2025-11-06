@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
 
     [Header("Mouse Look Settings")]
-    public float sensitivity = 2f;
+    public float sensitivity = 1f;
     public Transform playerCamera; 
     public float lowerBound = 90f;
     public float upperBound = 25f;

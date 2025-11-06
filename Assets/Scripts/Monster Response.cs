@@ -24,8 +24,17 @@ public class MonsterResponse : MonoBehaviour
     public Color restColor = new Color32(56, 56, 56, 255);
     public float flashDuration = 0.5f;
 
+    // Tyvin: This is from one of my CMPM 125 projects of Enemy AI that follows the player
+    // Used Unity Header Attribute: //docs.unity3d.com/6000.2/Documentation/ScriptReference/HeaderAttribute.html
+    [Header("Follow Player Settings")]
+    public Transform player;
+    public float followSpeed = 2f;
+    public float detectRange = 200f;
+    public float moveStepDistance = 8f;
 
-    //not implementing actual monster movement/attack functionality yet
+
+    private Rigidbody rb;
+    private bool isMoving = false;
 
     void Start()
     {
@@ -41,6 +50,8 @@ public class MonsterResponse : MonoBehaviour
 
 
         LoadGrowlClips();
+
+        rb = GetComponent<Rigidbody>();
     }
 
 
@@ -67,11 +78,45 @@ public class MonsterResponse : MonoBehaviour
         // limit monster perception to a certain range?
         AudioClip clip = growlClips[Random.Range(0, growlClips.Count)];
         monsterAudio.PlayOneShot(clip);
-        Debug.Log("Monster growl tiggered");
 
         DirectionIndicate();
 
+        float dist = Vector3.Distance(transform.position, player.position);
+        if (dist <= detectRange && !isMoving)
+        {
+            StartCoroutine(MoveTowardPlayer());
+        }
+
     }
+
+    // used Tyvin's code as a base !
+    private IEnumerator MoveTowardPlayer()
+    {
+        isMoving = true;
+
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0;
+
+        Vector3 targetPos = transform.position + direction * moveStepDistance;
+
+        float elapsed = 0f;
+        float moveTime = moveStepDistance / followSpeed;
+
+        while (elapsed < moveTime)
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPos, elapsed / moveTime);
+            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPos;
+        isMoving = false;
+    }
+
+
+
+
     // referenced this https://discussions.unity.com/t/using-vector3-dot-for-direction-facing-calculation/499619
     void DirectionIndicate()
     {

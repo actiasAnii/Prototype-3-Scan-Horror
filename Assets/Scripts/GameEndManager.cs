@@ -31,7 +31,7 @@ public class GameEndManager : MonoBehaviour
         if (endPanel) endPanel.SetActive(true);
 
         if (titleText)
-            titleText.text = win ? "You Escaped!" : "You Were Caught!";
+            titleText.text = win ? "You Escaped!" : "You DIED!";
         if (subtitleText)
             subtitleText.text = "Press R to Restart\nEsc to Quit";
 

@@ -17,8 +17,18 @@ public class TriggerEndCondition : MonoBehaviour
         if (!other.CompareTag(playerTag)) return;
 
         if (objectTag == "Door")
+        {
+            foreach (AudioSource audio in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+                audio.Stop();
             GameEndManager.I?.EndGame(true);
+        }
+            
         else if (objectTag == "???????")
+        {
+            foreach (AudioSource audio in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+                audio.Stop();
             GameEndManager.I?.EndGame(false);
+        }
+            
     }
 }
