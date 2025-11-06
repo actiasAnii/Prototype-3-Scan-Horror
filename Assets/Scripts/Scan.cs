@@ -49,7 +49,7 @@ public class Scan : MonoBehaviour
         {
             Debug.DrawLine(ray.origin, ray.direction * scanDist, Color.green, 5f); //debug raycast line
             objectScanned.text = hit.collider.tag;
-            distance.text = $"{hit.distance:F2} m";
+            distance.text = $" distance: {hit.distance:F2} m";
 
             Certainty certaintyBase = hit.collider.GetComponent<Certainty>();
             if (certaintyBase != null)
@@ -57,7 +57,7 @@ public class Scan : MonoBehaviour
                 float t = Mathf.Clamp01(1f - (hit.distance / scanDist));
                 float certaintyCalc = Mathf.Lerp(certaintyBase.minRange, certaintyBase.maxRange, t);
 
-                certainty.text = $"{certaintyCalc*100f:F2}%";
+                certainty.text = $"{certaintyCalc*100f:F2}% certain";
             }
         }
         else
